@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6c1130f564172bb4ba3e5d3273528f6b
+timeCreated: 1502596568
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - healthPrefab: {fileID: 1353332296275596, guid: d541e8122394044408b1e8ee380d69fc,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
