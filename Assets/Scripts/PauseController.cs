@@ -101,6 +101,11 @@ public class PauseController : MonoBehaviour {
 
     public void ExitToMenu()
     {
+        WorldController.SetArea(0);
+        WorldController.SetPrevArea(0);
+        WorldController.SetPrevWorld(0);
+        WorldController.SetSpawn(0);
+        WorldController.SetWorld(0);
         SceneManager.LoadScene("Main Menu");
     }
 
