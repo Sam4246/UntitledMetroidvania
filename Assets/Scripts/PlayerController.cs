@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour {
         if (col.gameObject.tag == "HealthDrop")
             HealPlayer();
 
-        if (col.gameObject.tag == "Exit")
+        if (col.gameObject.tag == "Exit" && gameController.CanPlayerExitScene())
             gameController.ChangeArea(col.gameObject.GetComponent<ExitController>().fromArea, col.gameObject.GetComponent<ExitController>().toArea, col.gameObject.GetComponent<ExitController>().toSpawn);
     }
 

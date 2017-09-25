@@ -12,10 +12,12 @@ public class GameController : MonoBehaviour {
     public string[] CaveWorldAreas;
     public GameObject[] AreaSpawns;
     public bool inGame;
+    public float exitDelay;
 
     private GameObject player;
     private bool pauseMenuOpen = false;
     private GameObject pm;
+    private bool canExit = false;
 
 	void Start () {
         if (!inGame)
@@ -27,6 +29,11 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update () {
+
+        if (!canExit)
+            exitDelay -= Time.deltaTime;
+        if (exitDelay <= 0)
+            canExit = true;
 
         if (Input.GetButtonDown("Pause"))
         {
@@ -84,5 +91,10 @@ public class GameController : MonoBehaviour {
     private void SetPlayerGameController()
     {
         player.GetComponent<PlayerController>().SetGameController(this);
+    }
+
+    public bool CanPlayerExitScene()
+    {
+        return canExit;
     }
 }
