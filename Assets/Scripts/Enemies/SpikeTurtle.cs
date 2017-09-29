@@ -94,21 +94,12 @@ public class SpikeTurtle : EnemyController {
             TurnAround();
     }
 
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        base.OnTriggerEnter2D(col);
-
-        if (col.gameObject.tag == "Player")
-            DropOnPlayer();
-    }
-
-    void DropOnPlayer()
+    public void DropOnPlayer()
     {
         falling = true;
         rb2d.gravityScale = 3;
         anim.SetTrigger("Fall");
         ceiling = false;
-        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     void WalkOnGround()
