@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour {
             attackUpTrigger.enabled = true;
             attackingUp = true;
         }
-        else if (attack && vertInput < -0.3)
+        else if (attack && vertInput < -0.3 && !IsGrounded())
         {
             anim.SetTrigger("AttackDown");
             beamDownAnim.SetTrigger("Attack");
@@ -141,6 +141,10 @@ public class PlayerController : MonoBehaviour {
 
         if (col.gameObject.tag == "Exit" && gameController.CanPlayerExitScene())
             gameController.ChangeArea(col.gameObject.GetComponent<ExitController>().fromArea, col.gameObject.GetComponent<ExitController>().toArea, col.gameObject.GetComponent<ExitController>().toSpawn);
+
+        if (col.gameObject.tag == "Projectile")
+            TakeDamage(1);
+
     }
 
     bool IsGrounded()

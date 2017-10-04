@@ -5,14 +5,14 @@ using UnityEngine;
 public class SpikeTurtle : EnemyController {
 
     public float minDistToGround;
+    public float maxDistToPlayer;
+
+    public LayerMask layerMaskForPlayer;
 
     private bool falling = false;
     private bool ceiling = true;
 
-	// Update is called once per frame
 	void Update () {
-        base.Update();
-
         if (fadeOut)
             fadeEnemy();
 
@@ -31,6 +31,11 @@ public class SpikeTurtle : EnemyController {
             TurnAround();
         else if (!ceiling && OverTheEdgeGround())
             TurnAround();
+
+        if (CheckPlayerUnder() && ceiling)
+        {
+            DropOnPlayer();
+        }
     }
 
     bool OverTheEdgeCeiling()
@@ -106,5 +111,22 @@ public class SpikeTurtle : EnemyController {
     {
         falling = false;
         anim.SetTrigger("Ground");
+    }
+
+    bool CheckPlayerUnder()
+    {
+        Vector2 position = transform.position;
+        position.y -= 1.5f;
+
+        float length = maxDistToPlayer;
+        Debug.DrawRay(position, Vector2.down * length);
+        RaycastHit2D hit = Physics2D.Raycast(position, Vector2.down, length, layerMaskForPlayer.value);
+
+        if (hit.collider != null)
+        {
+            return hit.collider.tag == "Player";
+        }
+
+        return false;
     }
 }

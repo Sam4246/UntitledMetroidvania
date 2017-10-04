@@ -8,8 +8,6 @@ public class SpikeWorm : EnemyController {
 
     void Update ()
     {
-        base.Update();
-
         if (fadeOut)
             fadeEnemy();
 

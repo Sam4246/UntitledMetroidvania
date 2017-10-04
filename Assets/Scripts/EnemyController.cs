@@ -24,14 +24,6 @@ public class EnemyController : MonoBehaviour {
         anim = GetComponent<Animator>();
         dc = GetComponent<DropController>();
 	}
-	
-	public void Update () {
-        if (paused)
-            return;
-
-        if (isDead)
-            return;
-	}
 
     public void OnTriggerEnter2D(Collider2D col)
     {

@@ -19,11 +19,15 @@ public class GameController : MonoBehaviour {
     private GameObject pm;
     private bool canExit = false;
 
-	void Start () {
+    private void Awake()
+    {
+        SpawnPlayer();
+    }
+
+    void Start () {
         if (!inGame)
             return;
 
-        SpawnPlayer();
         SetSceneCameraPlayer();
         SetPlayerGameController();
 	}
@@ -61,7 +65,7 @@ public class GameController : MonoBehaviour {
     {
         GameObject spawn;
         spawn = AreaSpawns[WorldController.GetSpawn()];
-        player = Instantiate(playerPrefab, spawn.transform);
+        player = Instantiate(playerPrefab, spawn.transform, true);
         player.GetComponent<Rigidbody2D>().AddForce(new Vector2(spawn.GetComponent<SpawnController>().xForce, spawn.GetComponent<SpawnController>().yForce));
     }
 

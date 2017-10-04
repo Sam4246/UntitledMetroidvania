@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bat : EnemyController {
 
+    public float maxDistToPlayer;
+
     private bool awake = false;
     private Transform player;
 	
@@ -11,12 +13,11 @@ public class Bat : EnemyController {
     {
         base.Start();
         rb2d.bodyType = RigidbodyType2D.Static;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
 	// Update is called once per frame
 	void Update () {
-        base.Update();
-
         if (fadeOut)
             fadeEnemy();
 
@@ -28,19 +29,23 @@ public class Bat : EnemyController {
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, player.position, step);
         }
+
+        if (CheckIfPlayerWake())
+            WakeUpBat();
     }
 
-    public void WakeUpBat(Transform playerTrans)
+    bool CheckIfPlayerWake()
+    {
+        if (Vector2.Distance(player.position, transform.position) < maxDistToPlayer)
+            return true;
+        else
+            return false;
+    }
+
+    public void WakeUpBat()
     {
         anim.SetTrigger("Wake");
         awake = true;
-        player = playerTrans;
         rb2d.bodyType = RigidbodyType2D.Dynamic;
-    }
-
-    public void OnTriggerEnter2D(Collider2D col)
-    {
-        if (awake)
-            base.OnTriggerEnter2D(col);
     }
 }
