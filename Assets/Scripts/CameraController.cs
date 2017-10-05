@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour {
     private Vector2 location;
     private Vector2 originalLocation;
     private float camSize;
+    private bool camSizeGood = false;
 
     private void Start()
     {
@@ -73,10 +74,18 @@ public class CameraController : MonoBehaviour {
         else if(transform.position.y < location.y)
             MoveDown();
 
-        if (cam.orthographicSize < camSize)
+        if (cam.orthographicSize < camSize && !camSizeGood)
+        {
             GrowCam();
-        else
+            if (cam.orthographicSize >= camSize)
+                camSizeGood = true;
+        }
+        else if (!camSizeGood)
+        {
             ShrinkCam();
+            if (cam.orthographicSize <= camSize)
+                camSizeGood = true;
+        }
     }
 
     private void MoveRight()
@@ -126,6 +135,7 @@ public class CameraController : MonoBehaviour {
         cam.orthographicSize = defaultSize;
         staticLocation = false;
         attachedToPlayer = true;
+        camSizeGood = false;
     }
 
 }

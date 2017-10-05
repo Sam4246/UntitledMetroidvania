@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour {
 
     private static int playerHP;
 
+    private AudioSource hurtSound;
+
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -50,6 +52,8 @@ public class PlayerController : MonoBehaviour {
         isDead = false;
 
         playerHP = 5;
+
+        hurtSound = GetComponents<AudioSource>()[0];
 	}
 
 	void Update ()
@@ -229,6 +233,9 @@ public class PlayerController : MonoBehaviour {
         vel.y = 0;
 
         playerHP -= damage;
+
+        hurtSound.Play();
+
         rb2d.velocity = vel;
         rb2d.AddForce(new Vector2(0, 400));
         if (playerHP <= 0)

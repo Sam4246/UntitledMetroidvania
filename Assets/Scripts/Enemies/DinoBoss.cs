@@ -31,10 +31,19 @@ public class DinoBoss : EnemyController {
     public float roarTime;
     public float attackCooldownTime;
 
+    private AudioSource roarSound;
+    private AudioSource fireballSound;
+    private AudioSource dieSound;
+    private AudioSource crashSound;
+
     private void Start()
     {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player");
+        roarSound = GetComponents<AudioSource>()[0];
+        fireballSound = GetComponents<AudioSource>()[1];
+        dieSound = GetComponents<AudioSource>()[2];
+        crashSound = GetComponents<AudioSource>()[3];
     }
 
     private void Update()
@@ -157,6 +166,7 @@ public class DinoBoss : EnemyController {
     void AttackPlayer()
     {
         anim.SetBool("Roar", true);
+        roarSound.Play();
 
         float value = Random.value;
 
@@ -198,6 +208,8 @@ public class DinoBoss : EnemyController {
         anim.SetTrigger("SpitFire");
         GameObject fireObj;
 
+        fireballSound.Play();
+
         fireObj = Instantiate(firePrefab, mouthTrans);
 
         fireObj.GetComponent<FireBallController>().TravelRight(facingRight);
@@ -219,6 +231,7 @@ public class DinoBoss : EnemyController {
     {
         if(collision.gameObject.tag == "Wall")
         {
+            crashSound.Play();
             FinishAttack();
         }
     }
@@ -226,7 +239,12 @@ public class DinoBoss : EnemyController {
     void DinoBossDead()
     {
         notDead = false;
+        dieSound.Play();
         bossController.DinoBossDead();
+    }
+
+    void Footstep()
+    {
     }
 
 }

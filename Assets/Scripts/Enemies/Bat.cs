@@ -8,12 +8,16 @@ public class Bat : EnemyController {
 
     private bool awake = false;
     private Transform player;
+
+    private AudioSource wakeUpSound;
 	
     void Start()
     {
         base.Start();
         rb2d.bodyType = RigidbodyType2D.Static;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        wakeUpSound = GetComponents<AudioSource>()[0];
     }
 
 	// Update is called once per frame
@@ -30,7 +34,7 @@ public class Bat : EnemyController {
             transform.position = Vector3.MoveTowards(transform.position, player.position, step);
         }
 
-        if (CheckIfPlayerWake())
+        if (CheckIfPlayerWake() && !awake)
             WakeUpBat();
     }
 
@@ -47,5 +51,6 @@ public class Bat : EnemyController {
         anim.SetTrigger("Wake");
         awake = true;
         rb2d.bodyType = RigidbodyType2D.Dynamic;
+        wakeUpSound.Play();
     }
 }

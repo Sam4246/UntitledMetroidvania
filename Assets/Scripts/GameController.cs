@@ -72,9 +72,6 @@ public class GameController : MonoBehaviour {
     public void togglePauseMenu()
     {
         pauseMenuOpen = !pauseMenuOpen;
-        player.GetComponent<PlayerController>().TogglePaused();
-        enemies.GetComponent<EnemyGroupController>().Pause();
-
     }
 
     public void ChangeArea(int currArea, int newArea, int spawn)
